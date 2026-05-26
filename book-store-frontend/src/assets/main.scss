@@ -1,0 +1,23 @@
+// ── 1. Bootstrap variables ───────────────────────────────────────────
+$primary:                  #E8A020;
+$dark:                     #1A1A1A;
+$success:                  #3ECF8E;
+$danger:                   #dc2626;
+$info:                     #5B9CF6;
+$border-radius:            8px;
+$border-radius-lg:         12px;
+$font-family-sans-serif:   'Barlow', sans-serif;
+$headings-font-family:     'Playfair Display', Georgia, serif;
+$input-border-color:       #DED6C6;
+$input-focus-border-color: #E8A020;
+$enable-negative-margins:  true;
+$btn-font-weight:          700;
+$body-bg:                  #F7F4EF;
+$body-color:               #333333;
+$link-decoration:          none;
+
+// ── 2. Bootstrap ─────────────────────────────────────────────────────
+@import "bootstrap/scss/bootstrap";
+
+// ── 3. Global custom styles ──────────────────────────────────────────
+@import "styles";

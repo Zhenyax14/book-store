@@ -1,0 +1,36 @@
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+const router = useRouter()
+</script>
+
+<template>
+  <div style="text-align: center; padding: 4rem 2rem">
+    <p style="font-size: 4rem">✅</p>
+    <h1>¡Pago completado!</h1>
+    <p>Tu pedido ha sido procesado correctamente.</p>
+    <button class="btn-primary" @click="router.push({ name: 'catalog' })">
+      Volver a la tienda
+    </button>
+  </div>
+</template>
+
+<style scoped>
+.btn-primary {
+  background: #e8a020;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 3px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.25s ease;
+  margin-top: 16px;
+}
+.btn-primary:hover {
+  background: #c88010;
+}
+</style>
