@@ -1,0 +1,10 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Application\Reading\UseCases\GetReadingSettings;
+
+final readonly class GetReadingSettingsCommand
+{
+    public function __construct(public int $userId) {}
+}

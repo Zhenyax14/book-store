@@ -1,0 +1,27 @@
+// ── 1. Bootstrap variable overrides ─────────────────────────────────
+$primary:                  #E8A020;
+$dark:                     #1A1A1A;
+$success:                  #3ECF8E;
+$danger:                   #dc2626;
+$info:                     #5B9CF6;
+$border-radius:            8px;
+$border-radius-lg:         12px;
+$border-radius-xl:         16px;
+$font-family-sans-serif:   'Barlow', sans-serif;
+$headings-font-family:     'Playfair Display', Georgia, serif;
+$input-border-color:       #DED6C6;
+$input-focus-border-color: #E8A020;
+$input-focus-box-shadow:   0 0 0 0.2rem rgba(232,160,32,.12);
+$input-padding-y:          0.69rem;
+$input-padding-x:          0.875rem;
+$enable-negative-margins:  true;
+$btn-font-weight:          700;
+$body-bg:                  #F7F4EF;
+$body-color:               #333333;
+$link-decoration:          none;
+
+// ── 2. Bootstrap ─────────────────────────────────────────────────────
+@import "bootstrap/scss/bootstrap";
+
+// ── 3. Custom styles ─────────────────────────────────────────────────
+@import "styles";
