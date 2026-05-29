@@ -159,7 +159,8 @@ services:
     image: stripe/stripe-cli:latest
     command: >
       listen
-      --forward-to http://10.1.0.20/api/v1/webhooks/stripe
+         --forward-to https://10.1.0.20/api/v1/webhooks/stripe
+         --skip-verify
     environment:
       STRIPE_API_KEY: ${STRIPE_SECRET_KEY}
     depends_on:
