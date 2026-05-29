@@ -1,0 +1,4 @@
+zone "bookstore.shop" {
+    type master;
+    file "/etc/bind/zones/db.bookstore.shop";
+};

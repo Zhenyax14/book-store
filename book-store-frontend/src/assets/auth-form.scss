@@ -1,0 +1,332 @@
+// auth-form.scss — usa variables Bootstrap, no cambia clases del template
+
+.auth-form {
+  &__header { margin-bottom: 28px; }
+
+  &__title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin-bottom: 4px;
+    line-height: 1.1;
+  }
+
+  &__sub {
+    font-size: 0.9rem;
+    color: #777;
+  }
+}
+
+// Form groups — extiende Bootstrap
+.form-group { margin-bottom: 18px; }
+
+.form-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.form-label {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #2C2C2C;
+  margin-bottom: 6px;
+}
+
+.form-forgot {
+  font-size: 0.78rem;
+  color: #E8A020;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  &:hover { opacity: 0.75; }
+}
+
+// Input wrapper con icono
+.form-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.form-input-icon {
+  position: absolute;
+  left: 12px;
+  width: 16px;
+  height: 16px;
+  color: #AAA;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+// Input — extiende .form-control de Bootstrap
+.form-input {
+  width: 100%;
+  padding: 0.69rem 40px 0.69rem 38px;
+  font-size: 0.9rem;
+  font-family: 'Barlow', sans-serif;
+  color: #2C2C2C;
+  background: #FFFFFF;
+  border: 1.5px solid #DED6C6;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &::placeholder { color: #AAA; }
+
+  &:focus {
+    border-color: #E8A020;
+    box-shadow: 0 0 0 3px rgba(232,160,32,.12);
+  }
+
+  &.error {
+    border-color: #D94040;
+    box-shadow: 0 0 0 3px rgba(217,64,64,.1);
+  }
+
+  &.valid { border-color: #3ECF8E; }
+}
+
+// Eye toggle
+.form-eye {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #AAA;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: color 0.2s;
+  &:hover { color: #2C2C2C; }
+  svg { width: 16px; height: 16px; }
+}
+
+// Error
+.form-error {
+  display: block;
+  font-size: 0.75rem;
+  color: #D94040;
+  margin-top: 5px;
+  min-height: 18px;
+}
+
+// Password strength
+.pass-strength {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &__bars { display: flex; gap: 4px; flex: 1; }
+
+  &__bar {
+    flex: 1;
+    height: 3px;
+    background: #DED6C6;
+    border-radius: 2px;
+    transition: background 0.3s ease;
+
+    &.weak   { background: #D94040; }
+    &.fair   { background: #F59E0B; }
+    &.good   { background: #3B82F6; }
+    &.strong { background: #3ECF8E; }
+  }
+
+  &__label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #777;
+    min-width: 48px;
+    text-align: right;
+  }
+}
+
+// Checkbox custom
+.form-check-row { margin-bottom: 22px; }
+
+.form-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.84rem;
+  color: #2C2C2C;
+  user-select: none;
+  padding-left: 0; // override Bootstrap
+
+  input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; }
+
+  &__box {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid #DED6C6;
+    border-radius: 4px;
+    background: #FFFFFF;
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  input:checked ~ &__box {
+    background: #E8A020;
+    border-color: #E8A020;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 4px; top: 1px;
+      width: 6px; height: 10px;
+      border: 2px solid #fff;
+      border-top: none; border-left: none;
+      transform: rotate(45deg);
+    }
+  }
+}
+
+// Submit button — extiende .btn Bootstrap
+.btn-auth {
+  width: 100%;
+  background: #E8A020;
+  color: #FFFFFF;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 8px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  &:hover {
+    background: #C88010;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(232,160,32,.35);
+  }
+
+  &:active { transform: translateY(0); }
+  &:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  &__loader {
+    position: absolute;
+    width: 20px; height: 20px;
+    border: 2px solid rgba(255,255,255,.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  &.loading {
+    .btn-auth__text { opacity: 0; }
+    .btn-auth__loader { opacity: 1; }
+  }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+// Switch link
+.auth-switch {
+  text-align: center;
+  font-size: 0.86rem;
+  color: #777;
+
+  &__btn {
+    background: none;
+    border: none;
+    color: #E8A020;
+    font-size: 0.86rem;
+    font-weight: 600;
+    padding: 0;
+    margin-left: 4px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    &:hover { opacity: 0.75; }
+  }
+}
+
+.form-link {
+  color: #E8A020;
+  font-weight: 500;
+  text-decoration: none;
+  &:hover { text-decoration: underline; }
+}
+
+// Success state
+.auth-success {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  padding: 40px 0;
+  animation: fadeUp 0.4s ease both;
+
+  &.show { display: flex; }
+
+  &__icon {
+    width: 64px; height: 64px;
+    background: #3ECF8E;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    animation: successPop 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+
+  &__title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #1A1A1A;
+  }
+
+  &__sub { font-size: 0.88rem; color: #777; }
+
+  &__progress {
+    width: 200px; height: 3px;
+    background: #DED6C6;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 8px;
+
+    &::after {
+      content: '';
+      display: block;
+      height: 100%;
+      background: #3ECF8E;
+      border-radius: 2px;
+      animation: progressBar 2s ease forwards;
+    }
+  }
+}
+
+@keyframes successPop {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+@keyframes progressBar { from { width: 0; } to { width: 100%; } }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
