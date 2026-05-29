@@ -9,6 +9,14 @@ export interface Subscription {
   expires_at: string
 }
 
+export interface SubscriptionCheckoutResponse {
+  payment_url: string
+}
+
+export interface SubscriptionCheckoutPayload {
+  price_id: string
+}
+
 export interface SubscriptionIndexParams {
   status?: SubscriptionStatus
   per_page?: number

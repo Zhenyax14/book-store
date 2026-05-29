@@ -1,5 +1,11 @@
 import { http, buildQuery } from './client'
-import type { Subscription, PaginatedResponse, SubscriptionIndexParams } from '@/types'
+import type {
+  Subscription,
+  PaginatedResponse,
+  SubscriptionIndexParams,
+  SubscriptionCheckoutPayload,
+  CheckoutResponse, SubscriptionCheckoutResponse
+} from '@/types'
 
 export const subscriptionsApi = {
   index: (params: SubscriptionIndexParams = {}) =>
@@ -8,4 +14,6 @@ export const subscriptionsApi = {
     ),
 
   show: (id: number) => http.get<Subscription>(`/admin/subscriptions/${id}`),
+
+  checkout: (payload: SubscriptionCheckoutPayload) => http.post<SubscriptionCheckoutResponse>('/subscriptions/checkout', payload),
 }

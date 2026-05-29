@@ -7,11 +7,13 @@ import { useReadingStore } from '@/stores/reading'
 import { useAuthStore } from '@/stores/auth'
 import { useToastStore } from '@/stores/toast'
 import AppSpinner from '@/components/ui/AppSpinner.vue'
+import {useSubscriptionsStore} from "@/stores/subscriptions.ts";
 
 const props = defineProps<{ id: number }>()
 
 const booksStore = useBooksStore()
 const cartStore = useCartStore()
+const subscriptionStore = useSubscriptionsStore()
 const readingStore = useReadingStore()
 const auth = useAuthStore()
 const toast = useToastStore()
@@ -29,6 +31,21 @@ async function handleAddToCart(): Promise<void> {
     toast.success('Add to cart', booksStore.currentBook?.title)
   } else {
     toast.error('Fail', cartStore.error)
+  }
+}
+
+async function subscribe(): Promise<void> {
+  if (!auth.isAuthenticated) {
+    await router.push({ name: 'login' })
+    return
+  }
+
+  const url = await subscriptionStore.checkout()
+
+  if (url) {
+    window.location.href = url  // ← redirige a Stripe
+  } else {
+    toast.error('Fail', subscriptionStore.error ?? undefined)
   }
 }
 
@@ -91,6 +108,14 @@ async function handleAddToList(): Promise<void> {
           >
             Add to Cart
           </button>
+          <button
+            class="btn btn--secondary"
+            :disabled="subscriptionStore.isLoading"
+            @click="subscribe"
+          >
+            Subscribe
+          </button>
+
           <button class="btn btn--secondary" @click="handleAddToList">Add to Reading List</button>
         </div>
       </div>

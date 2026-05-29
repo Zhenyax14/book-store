@@ -40,6 +40,22 @@ export const useSubscriptionsStore = defineStore('subscriptions', () => {
     }
   }
 
+  async function checkout(): Promise<string | null> {
+    isLoading.value = true
+    error.value = null
+    try {
+      const response = await subscriptionsApi.checkout({
+        price_id: import.meta.env.VITE_PRICE_ID
+      })
+      return response.payment_url
+    } catch (e) {
+      error.value = e instanceof Error ? e.message : 'Failed to subscribe.'
+      return null
+    } finally {
+      isLoading.value = false
+    }
+  }
+
   return {
     subscriptions,
     currentSubscription,
@@ -48,5 +64,6 @@ export const useSubscriptionsStore = defineStore('subscriptions', () => {
     error,
     fetchSubscriptions,
     fetchSubscription,
+    checkout,
   }
 })

@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Stripe\Exception\SignatureVerificationException;
+use Stripe\Subscription;
 
 final class StripeWebhookController extends Controller
 {
@@ -99,7 +100,7 @@ final class StripeWebhookController extends Controller
     /**
      * @throws DateMalformedStringException
      */
-    private function handleSubscriptionUpdate(object $subscription): void
+    private function handleSubscriptionUpdate(Subscription $subscription): void
     {
         $userId = (int) ($subscription->metadata?->user_id ?? 0);
 
@@ -111,10 +112,18 @@ final class StripeWebhookController extends Controller
             return;
         }
 
+        if (null === $subscription->items?->data[0]?->current_period_end) {
+            Log::warning('Stripe webhook: subscription missing current period end', [
+                'subscription_id' => $subscription->id,
+            ]);
+
+            return;
+        }
+
         $this->grantSubscription->handle(new GrantSubscriptionCommand(
             userId: $userId,
             stripeSubscriptionId: $subscription->id,
-            expiresAt: new DateTimeImmutable('@' . $subscription->current_period_end),
+            expiresAt: new DateTimeImmutable('@' . $subscription->items->data[0]->current_period_end),
         ));
     }
 }
