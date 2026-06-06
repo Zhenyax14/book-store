@@ -64,9 +64,18 @@ export const useReadingStore = defineStore('reading', () => {
   }
 
   async function saveProgress(bookId: number, payload: SaveProgressPayload): Promise<void> {
-    await readingApi.saveProgress(bookId, payload)
-  }
+    const result = await readingApi.saveProgress(bookId, payload)
 
+    if (currentProgress.value) {
+      currentProgress.value.progress.percentage = parseFloat(result.completion_percentage)
+      currentProgress.value.progress.is_finished = result.is_finished === 'true'
+      currentProgress.value.last_position = {
+        chapter_id: payload.chapter_id,
+        page_id: payload.page_id,
+        scroll_position: payload.scroll_position,
+      }
+    }
+  }
   async function fetchPage(bookId: number, pageId: number): Promise<void> {
     isLoading.value = true
     try {
