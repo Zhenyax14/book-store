@@ -72,8 +72,12 @@ async function handleSubmit(): Promise<void> {
     showSuccess.value = true
     setTimeout(() => router.push({ name: 'home' }), 2400)
   } catch (e) {
-    if (e instanceof HttpError && e.body.errors) {
-      fieldErrors.value = e.body.errors
+    if (e instanceof HttpError) {
+      if (e.body.errors) {
+        fieldErrors.value = e.body.errors
+      } else if (e.body.message) {
+        fieldErrors.value = { email: [e.body.message] }
+      }
     }
   } finally {
     isLoading.value = false

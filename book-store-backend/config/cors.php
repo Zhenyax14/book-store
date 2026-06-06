@@ -19,7 +19,10 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:5173', 'http://localhost:8080'],
+    'allowed_origins' => [
+        'https://bookstore.shop',
+        'https://www.bookstore.shop',
+    ],
 
     'allowed_origins_patterns' => [],
 
@@ -29,6 +32,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false,
+    'supports_credentials' => true,
 
 ];
