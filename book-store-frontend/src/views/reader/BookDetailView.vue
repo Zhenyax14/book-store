@@ -43,14 +43,17 @@ const currentChapterNumber = computed(() => {
   return chapter?.number ?? 1
 })
 
-const readRoute = computed(() => ({
-  name: 'read-page',
-  params: {
-    bookId: bookId.value,
-    chapterId: currentBookmark.value?.chapterId ?? currentBook.value?.chapters?.[0]?.id,
-    pageId: currentBookmark.value?.pageId ?? currentBook.value?.chapters?.[0]?.pageIds?.[0],
-  },
-}))
+const readRoute = computed(() => {
+  if (!currentBook.value?.chapters?.length) return null
+  return {
+    name: 'read-page',
+    params: {
+      bookId: bookId.value,
+      chapterId: currentBookmark.value?.chapterId ?? currentBook.value.chapters[0].id,
+      pageId: currentBookmark.value?.pageId ?? currentBook.value.chapters[0].pageIds?.[0],
+    },
+  }
+})
 
 const activeTab = ref<'desc' | 'chapters'>('desc')
 
@@ -114,13 +117,14 @@ function handleReadClick() {
                 </div>
               </div>
             </div>
-            <RouterLink
+            <button
+              v-if="readRoute"
               class="cover-btn"
-              :to="readRoute"
               style="width: 100%; margin-bottom: 12px"
+              @click="router.push(readRoute)"
             >
               Continue Reading
-            </RouterLink>
+            </button>
           </div>
 
           <div class="book-info-col">
