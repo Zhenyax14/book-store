@@ -51,7 +51,7 @@ final readonly class StripePaymentGateway implements PaymentGatewayInterface
                     'expires_at'  => time() + 3600,
                 ],
                 [
-                    'idempotency_key' => 'checkout_session_cart_' . $cartId,
+                    'idempotency_key' => 'checkout_session_cart_' . $cartId . '_' . time(),
                 ],
             );
 

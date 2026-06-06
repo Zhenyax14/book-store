@@ -48,6 +48,8 @@ RUN addgroup -g 1000 appgroup \
 RUN mkdir -p /var/log/php \
     && chown -R appuser:appgroup /var/log/php
 
+RUN apk add --no-cache nodejs npm
+
 WORKDIR /var/www/html
 
 USER appuser
