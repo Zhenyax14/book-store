@@ -44,21 +44,36 @@ const currentChapterNumber = computed(() => {
 })
 
 const readRoute = computed(() => {
-  if (!currentBook.value?.chapters?.length) return null
+  const chapters = currentBook.value?.chapters
+  if (!chapters?.length) return null
+
+  const lastPos = readingStore.currentProgress?.last_position
+  const bookmark = currentBookmark.value
+  const firstChapter = chapters[0]
+  if (!firstChapter) return null
+
+  const chapterId: number = lastPos?.chapter_id
+    ?? bookmark?.chapterId
+    ?? firstChapter.id
+
+  const pageId: number = lastPos?.page_id
+    ?? bookmark?.pageId
+    ?? Number(firstChapter.pageIds?.[0] ?? 0)
+
+  if (!chapterId || !pageId) return null
+
   return {
     name: 'read-page',
-    params: {
-      bookId: bookId.value,
-      chapterId: currentBookmark.value?.chapterId ?? currentBook.value.chapters[0].id,
-      pageId: currentBookmark.value?.pageId ?? currentBook.value.chapters[0].pageIds?.[0],
-    },
+    params: { bookId: bookId.value, chapterId, pageId },
   }
 })
-
 const activeTab = ref<'desc' | 'chapters'>('desc')
 
-onMounted(() => {
-  readingStore.fetchBook(bookId.value)
+onMounted(async () => {
+  await Promise.all([
+    readingStore.fetchBook(bookId.value),
+    readingStore.fetchProgress(bookId.value),
+  ])
 })
 
 async function handleRemoveFromList(): Promise<void> {

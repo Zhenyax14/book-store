@@ -54,69 +54,75 @@ const canGoToPrevChapter = computed(() => {
   return currentChapterIndex.value > 0
 })
 
-const prevPage = () => {
-  const prevPageId = pages.value[currentPageIndex.value - 1]
-  if (!prevPageId) return
+const totalPages = computed(() =>
+  sortedChapters.value.reduce((acc, c) => acc + (c.pageIds?.length ?? 0), 0),
+)
+
+const getChapterOffset = (chapterId: number): number => {
+  let offset = 0
+  for (const chapter of sortedChapters.value) {
+    if (chapter.id === chapterId) break
+    offset += chapter.pageIds?.length ?? 0
+  }
+  return offset
+}
+
+const globalPageOffset = computed(() => getChapterOffset(props.chapterId))
+
+const saveAndNavigate = async (
+  chapterId: number,
+  targetPageId: number,
+  chapterPageIndex: number,
+  offsetOverride?: number,
+) => {
+  const offset = offsetOverride !== undefined ? offsetOverride : globalPageOffset.value
+
+  await reading.saveProgress(bookId.value, {
+    chapter_id: chapterId,
+    page_id: targetPageId,
+    global_page_number: offset + chapterPageIndex + 1,
+    scroll_position: 0,
+    total_pages: totalPages.value,
+    book_title: currentBook.value?.title ?? '',
+  })
 
   router.push({
     name: 'read-page',
-    params: {
-      bookId: bookId.value,
-      chapterId: props.chapterId,
-      pageId: prevPageId,
-    },
+    params: { bookId: bookId.value, chapterId, pageId: targetPageId },
   })
+}
+
+const prevPage = () => {
+  const prevPageId = pages.value[currentPageIndex.value - 1]
+  if (!prevPageId) return
+  saveAndNavigate(props.chapterId, prevPageId, currentPageIndex.value - 1)
 }
 
 const nextPage = () => {
   const nextPageId = pages.value[currentPageIndex.value + 1]
   if (!nextPageId) return
-
-  router.push({
-    name: 'read-page',
-    params: {
-      bookId: bookId.value,
-      chapterId: props.chapterId,
-      pageId: nextPageId,
-    },
-  })
+  saveAndNavigate(props.chapterId, nextPageId, currentPageIndex.value + 1)
 }
 
 const nextChapter = () => {
   const chapter = sortedChapters.value[currentChapterIndex.value + 1]
-
   if (!chapter) return
-
   const firstPageId = chapter.pageIds?.[0]
   if (!firstPageId) return
-
-  router.push({
-    name: 'read-page',
-    params: {
-      bookId: bookId.value,
-      chapterId: chapter.id,
-      pageId: firstPageId,
-    },
-  })
+  saveAndNavigate(chapter.id, firstPageId, 0, getChapterOffset(chapter.id))
 }
 
 const prevChapter = () => {
   const chapter = sortedChapters.value[currentChapterIndex.value - 1]
-
   if (!chapter) return
-
   const lastPageId = chapter.pageIds?.[chapter.pageIds.length - 1]
-
   if (!lastPageId) return
-
-  router.push({
-    name: 'read-page',
-    params: {
-      bookId: bookId.value,
-      chapterId: chapter.id,
-      pageId: lastPageId,
-    },
-  })
+  saveAndNavigate(
+    chapter.id,
+    lastPageId,
+    (chapter.pageIds?.length ?? 1) - 1,
+    getChapterOffset(chapter.id),
+  )
 }
 </script>
 
