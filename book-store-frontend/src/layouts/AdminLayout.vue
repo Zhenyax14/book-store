@@ -174,4 +174,6 @@ async function handleLogout(): Promise<void> {
   </div>
 </template>
 
-<style></style>
+<style>
+@import '@/assets/admin.scss';
+</style>
