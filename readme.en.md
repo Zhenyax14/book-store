@@ -1,4 +1,4 @@
-🇪🇸 [Español](README.md) | 🇬🇧 [English](README.en.md)
+🇪🇸 [Español](readme.md) | 🇬🇧 [English](readme.en.md)
 
 # 📚 BookShop - Book Sales and Subscription Platform
 
