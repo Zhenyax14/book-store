@@ -155,7 +155,7 @@ Used in:
 
 ## Frontend
 
-👉 **[See design mockup](https://zhenyax14.github.io/book_shop/design/concept-art.html)**
+👉 **[See design mockup](https://zhenyax14.github.io/book-store/design/concept-art.html)**
 
 - Vue.js 3
 - Inertia.js
