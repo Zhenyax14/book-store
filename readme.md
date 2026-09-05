@@ -180,7 +180,7 @@ Ventajas:
 ## Frontend
 
 
-👉 **[Ver prototipo interactivo](https://zhenyax14.github.io/book_shop/design/concept-art.html)**
+👉 **[Ver prototipo interactivo](https://zhenyax14.github.io/book_store/sdesign/concept-art.html)**
 
 - Vue.js 3
 - Inertia.js
